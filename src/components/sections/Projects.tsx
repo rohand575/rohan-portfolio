@@ -262,7 +262,7 @@ const Projects = () => {
                 </p>
                 <Button
                   className="bg-accent-gradient hover:opacity-90 text-white shadow-glow transition-all duration-300 hover:scale-105"
-                  onClick={() => window.open('https://github.com/rohan-dhanawade', '_blank')}
+                  onClick={() => window.open('https://github.com/rohand575', '_blank')}
                 >
                   <Github className="mr-2 h-5 w-5" />
                   Visit GitHub Profile
