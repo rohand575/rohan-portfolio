@@ -17,7 +17,7 @@ const Hero = () => {
     },
     {
       icon: Github,
-      href: 'https://github.com/rohan-dhanawade',
+      href: 'https://github.com/rohand575',
       label: 'GitHub Profile',
     },
     {

@@ -23,13 +23,13 @@ const Index = () => {
           <Contact />
         </main>
         
-        <footer className="bg-muted/30 border-t border-border py-8">
+        {/* <footer className="bg-muted/30 border-t border-border py-8">
           <div className="container mx-auto px-6 text-center">
             <p className="text-muted-foreground">
               © 2024 Rohan Dhanawade. Built with React, TypeScript & Tailwind CSS.
             </p>
           </div>
-        </footer>
+        </footer> */}
       </div>
     </ThemeProvider>
   );

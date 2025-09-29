@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Linkedin, Github, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Linkedin, Github, CheckCircle, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -40,8 +40,14 @@ const Contact = () => {
     {
       icon: Github,
       label: 'GitHub',
-      href: 'https://github.com/rohan-dhanawade',
+      href: 'https://github.com/rohand575',
       color: 'text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white',
+    },
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/rohan__d/", // replace with your handle
+      icon: Instagram,
+      color: "text-pink-500 hover:text-pink-600",
     },
   ];
 
@@ -121,7 +127,7 @@ const Contact = () => {
             <div className="w-20 h-1 bg-accent-gradient mx-auto rounded-full mt-4"></div>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="max-w-3xl mx-auto px-4">
             {/* Contact Info */}
             <div className="space-y-8">
               <Card className="border border-border/50">
@@ -194,7 +200,7 @@ const Contact = () => {
             </div>
 
             {/* Contact Form */}
-            <Card className="border border-border/50">
+            {/* <Card className="border border-border/50">
               <CardHeader>
                 <CardTitle>Send a Message</CardTitle>
               </CardHeader>
@@ -254,11 +260,11 @@ const Contact = () => {
                   </Button>
                 </form>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
 
           {/* Additional CTA */}
-          <div className="text-center mt-16">
+          {/* <div className="text-center mt-16">
             <Card className="border border-border/50 bg-card-gradient">
               <CardContent className="p-8">
                 <h3 className="text-xl font-semibold mb-3">Ready to Collaborate?</h3>
@@ -286,7 +292,7 @@ const Contact = () => {
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
