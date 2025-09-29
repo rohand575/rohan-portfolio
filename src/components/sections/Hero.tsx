@@ -67,11 +67,12 @@ const Hero = () => {
             <Button
               size="lg"
               className="bg-accent-gradient hover:opacity-90 text-white shadow-glow transition-all duration-300 hover:scale-105"
-              onClick={() => window.open('#', '_blank')}
-            >
-              <Download className="mr-2 h-5 w-5" />
-              View Resume
+              >
+              <a href="/Resume.pdf" download>
+                ⬇️ Download Resume (pdf)
+              </a>
             </Button>
+
             
             <Button
               size="lg"
