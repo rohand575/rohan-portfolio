@@ -39,8 +39,8 @@ const Projects = () => {
       technologies: ['LangChain', 'OpenAI', 'FAISS', 'Streamlit', 'RAG'],
       status: 'Completed',
       links: [
-        { type: 'github', url: '#', label: 'GitHub' },
-        { type: 'demo', url: '#', label: 'Demo' },
+        { type: 'github', url: 'https://github.com/rohand575/doc-chat-ai', label: 'GitHub' },
+        { type: 'demo', url: 'https://doc-ai.rohan-dhanawade.de/', label: 'Demo' },
       ],
       featured: false,
     },
