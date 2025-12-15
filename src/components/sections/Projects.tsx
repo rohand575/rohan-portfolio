@@ -1,9 +1,8 @@
 import React from 'react';
-import { ExternalLink, Github, Play, FileText, Zap, Brain, Database, Smartphone, AlertCircle, CheckCircle2, TrendingUp, Layers } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ExternalLink, Github, Play, FileText, Zap, Brain, Database, Smartphone, Layers } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 
 const Projects = () => {
   const projects = [
@@ -15,21 +14,34 @@ const Projects = () => {
       icon: Zap,
       technologies: ['Python', 'Scikit-learn', 'Docker', 'Azure ML', 'MLOps', 'CI/CD', 'FastAPI'],
       status: 'Deployed',
-      architecture: [
+      keyPoints: [
         'Data ingestion & preprocessing pipeline',
-        'Model training with hyperparameter tuning',
         'Docker containerization for reproducibility',
         'Azure ML deployment with auto-scaling',
-        'Monitoring dashboard for drift detection',
       ],
-      challenges: [
-        'Containerized the entire pipeline to ensure reproducibility across dev/prod environments',
-        'Implemented automated model retraining triggers based on data drift detection metrics',
-      ],
-      impact: 'Reduced deployment time from manual ~2 hours to automated 15-minute CI/CD pipeline. Added monitoring to catch model drift.',
+      impact: 'Reduced deployment time from manual ~2 hours to automated 15-minute CI/CD pipeline.',
       links: [
         { type: 'github', url: '#', label: 'View Code' },
         { type: 'demo', url: '#', label: 'Live Demo' },
+      ],
+      featured: true,
+    },
+    {
+      title: 'Zen Engineering Solutions',
+      description: 'Complete business website for an engineering services firm with SEO-optimized public site and secure admin dashboard for quotation management.',
+      problem: 'Create a professional web presence for an engineering services firm with internal tools for quotation management and client data handling.',
+      whatIBuilt: 'Complete business solution featuring a multi-page professional website with SEO optimization, custom domain deployment with HTTPS, and a secure admin dashboard. The solution emphasizes performance, clean UI, and real-world business usability for managing quotations and client interactions.',
+      icon: Layers,
+      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Node.js', 'REST APIs', 'GitHub Pages'],
+      status: 'Deployed',
+      keyPoints: [
+        'Multi-page professional business website',
+        'Secure admin dashboard for quotation generation',
+        'SEO-ready structure with custom domain HTTPS',
+      ],
+      impact: 'Deployed to production with custom domain. Provides complete business web presence and internal management tools.',
+      links: [
+        { type: 'demo', url: 'https://zenengineerings.com/', label: 'Live Website' },
       ],
       featured: true,
     },
@@ -39,20 +51,14 @@ const Projects = () => {
       problem: 'Enable musicians to create music through conversation instead of requiring technical music theory knowledge.',
       whatIBuilt: 'Master\'s thesis project combining NLP with symbolic music generation. Built a system that interprets natural language music requests (e.g., "happy summer song in G major") and generates appropriate chord progressions and strumming patterns using music theory algorithms and LLM-based intent understanding.',
       icon: Brain,
-      technologies: ['NLP', 'LLMs', 'Symbolic Music', 'Python', 'FastAPI', 'React (Basics)', 'Music Theory Algorithms'],
+      technologies: ['NLP', 'LLMs', 'Symbolic Music', 'Python', 'FastAPI', 'React', 'Music Theory'],
       status: 'In Development',
-      architecture: [
+      keyPoints: [
         'LLM-based natural language intent parser',
         'Music theory constraint solver for chord progressions',
-        'Strumming pattern generator with rhythm templates',
         'FastAPI backend + React frontend with audio playback',
-        'Timeline editor for pattern customization',
       ],
-      challenges: [
-        'Designed constraint-based music theory engine to ensure generated chords are musically valid and match user intent',
-        'Built prompt engineering pipeline to extract musical attributes (key, mood, tempo) from conversational input',
-      ],
-      impact: 'Next: Add benchmarks for user satisfaction and generation accuracy. Targeting <2 second response time for generation.',
+      impact: 'Targeting <2 second response time for generation.',
       links: [
         { type: 'github', url: '#', label: 'GitHub' },
         { type: 'document', url: '#', label: 'Thesis Proposal' },
@@ -67,18 +73,12 @@ const Projects = () => {
       icon: FileText,
       technologies: ['LangChain', 'OpenAI', 'FAISS', 'Streamlit', 'RAG', 'Python'],
       status: 'Deployed',
-      architecture: [
+      keyPoints: [
         'PDF text extraction & intelligent chunking',
-        'Embedding generation with OpenAI',
         'FAISS vector store for semantic search',
-        'LangChain orchestration layer',
         'Streamlit frontend with chat interface',
       ],
-      challenges: [
-        'Optimized chunk size (500 tokens with 50 token overlap) to balance context vs. retrieval precision',
-        'Added source citation feature to show which PDF pages were used for each answer',
-      ],
-      impact: 'Deployed to production. Next: Add usage analytics and query latency metrics.',
+      impact: 'Deployed to production with usage analytics and query latency metrics.',
       links: [
         { type: 'github', url: 'https://github.com/rohand575/doc-chat-ai', label: 'GitHub' },
         { type: 'demo', url: 'https://doc-ai.rohan-dhanawade.de/', label: 'Live Demo' },
@@ -93,17 +93,12 @@ const Projects = () => {
       icon: Brain,
       technologies: ['FastAPI', 'OpenAI API', 'Python', 'React', 'REST APIs', 'Conversational AI'],
       status: 'Completed',
-      architecture: [
+      keyPoints: [
         'FastAPI REST endpoints for chat',
-        'OpenAI GPT-3.5/4 integration with system prompts',
+        'OpenAI GPT integration with system prompts',
         'Session-based conversation memory',
-        'React frontend with WebSocket support',
       ],
-      challenges: [
-        'Implemented conversation context management to stay within token limits while maintaining coherent dialogue',
-        'Added character personality system prompts to enable different chatbot personas',
-      ],
-      impact: 'Next: Add latency benchmarks and response quality metrics.',
+      impact: 'Supports multiple character personas with coherent dialogue management.',
       links: [
         { type: 'github', url: '#', label: 'GitHub' },
       ],
@@ -181,137 +176,87 @@ const Projects = () => {
             <div className="w-20 h-1 bg-accent-gradient mx-auto rounded-full mt-4"></div>
           </div>
 
-          {/* Featured Projects - Case Study Format */}
-          <div className="space-y-8 mb-16">
+          {/* Featured Projects - Compact Grid */}
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
             {featuredProjects.map((project, index) => (
               <Card
                 key={index}
-                className="border border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-large group"
+                className="border border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-medium hover-lift group flex flex-col"
               >
-                <CardHeader className="pb-4">
+                <CardContent className="p-5 flex flex-col flex-grow">
+                  {/* Header */}
                   <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <project.icon className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-2xl group-hover:text-primary transition-colors duration-300">
-                          {project.title}
-                        </CardTitle>
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          {project.technologies.map((tech, techIndex) => (
-                            <Badge key={techIndex} variant="secondary" className="text-xs">
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <project.icon className="h-5 w-5 text-primary" />
                     </div>
                     <Badge className={getStatusColor(project.status)}>
                       {project.status}
                     </Badge>
                   </div>
-                </CardHeader>
 
-                <CardContent className="pt-0 space-y-6">
-                  {/* Problem */}
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <AlertCircle className="h-4 w-4 text-orange-500" />
-                      <h4 className="font-semibold text-sm">Problem</h4>
+                  {/* Title */}
+                  <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
+                    {project.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  {/* Technologies */}
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-1">
+                      {project.technologies.slice(0, 4).map((tech, techIndex) => (
+                        <Badge key={techIndex} variant="secondary" className="text-xs">
+                          {tech}
+                        </Badge>
+                      ))}
+                      {project.technologies.length > 4 && (
+                        <Badge variant="secondary" className="text-xs">
+                          +{project.technologies.length - 4}
+                        </Badge>
+                      )}
                     </div>
-                    <p className="text-muted-foreground text-sm leading-relaxed pl-6">
-                      {project.problem}
-                    </p>
                   </div>
 
-                  <Separator />
-
-                  {/* What I Built */}
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <Zap className="h-4 w-4 text-blue-500" />
-                      <h4 className="font-semibold text-sm">What I Built</h4>
+                  {/* Key Points */}
+                  {project.keyPoints && (
+                    <div className="mb-4 flex-grow">
+                      <ul className="space-y-1.5">
+                        {project.keyPoints.map((point, i) => (
+                          <li key={i} className="text-xs text-muted-foreground flex items-start gap-2">
+                            <span className="text-primary mt-0.5">•</span>
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <p className="text-muted-foreground text-sm leading-relaxed pl-6">
-                      {project.whatIBuilt}
-                    </p>
-                  </div>
-
-                  <Separator />
-
-                  {/* Architecture */}
-                  {project.architecture && (
-                    <>
-                      <div>
-                        <div className="flex items-center gap-2 mb-3">
-                          <Layers className="h-4 w-4 text-purple-500" />
-                          <h4 className="font-semibold text-sm">Architecture</h4>
-                        </div>
-                        <ul className="space-y-2 pl-6">
-                          {project.architecture.map((item, i) => (
-                            <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                              <span className="text-primary mt-1">→</span>
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <Separator />
-                    </>
-                  )}
-
-                  {/* Challenges & Fixes */}
-                  {project.challenges && (
-                    <>
-                      <div>
-                        <div className="flex items-center gap-2 mb-3">
-                          <CheckCircle2 className="h-4 w-4 text-green-500" />
-                          <h4 className="font-semibold text-sm">Challenges & Fixes</h4>
-                        </div>
-                        <ul className="space-y-2 pl-6">
-                          {project.challenges.map((item, i) => (
-                            <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                              <span className="text-green-500 mt-1">✓</span>
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <Separator />
-                    </>
                   )}
 
                   {/* Impact */}
                   {project.impact && (
-                    <>
-                      <div>
-                        <div className="flex items-center gap-2 mb-2">
-                          <TrendingUp className="h-4 w-4 text-accent" />
-                          <h4 className="font-semibold text-sm">Impact</h4>
-                        </div>
-                        <p className="text-muted-foreground text-sm leading-relaxed pl-6">
-                          {project.impact}
-                        </p>
-                      </div>
-                      <Separator />
-                    </>
+                    <div className="mb-4">
+                      <p className="text-xs text-muted-foreground italic">
+                        {project.impact}
+                      </p>
+                    </div>
                   )}
 
                   {/* Links */}
-                  <div className="flex flex-wrap gap-2 pt-2">
+                  <div className="flex flex-wrap gap-2 mt-auto pt-3 border-t border-border/50">
                     {project.links.map((link, linkIndex) => {
                       const IconComponent = getLinkIcon(link.type);
                       return (
                         <Button
                           key={linkIndex}
-                          variant="outline"
+                          variant="ghost"
                           size="sm"
-                          className="hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                          className="h-8 px-3 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                           onClick={() => window.open(link.url, '_blank')}
                         >
-                          <IconComponent className="h-4 w-4 mr-2" />
-                          {link.label}
+                          <IconComponent className="h-3.5 w-3.5 mr-1.5" />
+                          <span className="text-xs">{link.label}</span>
                         </Button>
                       );
                     })}
