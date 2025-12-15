@@ -1,86 +1,119 @@
 import React from 'react';
-import { 
-  Code, 
-  Brain, 
-  Cloud, 
-  Database, 
-  Monitor, 
+import {
+  Code,
+  Brain,
+  Cloud,
+  Database,
+  Monitor,
   Users,
   Cpu,
   Globe,
   Server,
   BarChart3,
-  Lightbulb
+  Lightbulb,
+  Award,
+  ExternalLink,
+  Calendar
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 const Skills = () => {
   const skillCategories = [
     {
-      title: 'Programming',
-      icon: Code,
+      title: 'Backend Engineering',
+      icon: Server,
       color: 'text-blue-500',
       bgColor: 'bg-blue-500/10',
-      skills: ['Python', 'C++', 'Java', 'SQL'],
+      skills: ['Python', 'FastAPI', 'REST APIs', 'Redis', 'Async/Concurrency', 'Authentication', 'SQL', 'PostgreSQL'],
     },
     {
-      title: 'AI/ML',
+      title: 'Data & ML Engineering',
       icon: Brain,
       color: 'text-purple-500',
       bgColor: 'bg-purple-500/10',
-      skills: ['Machine Learning', 'Deep Learning', 'NLP', 'Generative AI (learning)'],
+      skills: ['pandas', 'scikit-learn', 'Model Training', 'Model Evaluation', 'Embeddings', 'RAG Systems', 'Vector DBs', 'NLP'],
     },
     {
-      title: 'Cloud / DevOps',
+      title: 'Cloud & Infrastructure',
       icon: Cloud,
       color: 'text-green-500',
       bgColor: 'bg-green-500/10',
-      skills: ['AWS', 'Azure', 'OCI', 'Docker', 'CI/CD', 'MLOps basics'],
+      skills: ['AWS (S3, Lambda)', 'Azure (ML, Functions)', 'OCI', 'Docker', 'CI/CD', 'MLOps Basics'],
     },
     {
-      title: 'Data & Tools',
-      icon: Database,
+      title: 'Dev Practices',
+      icon: Monitor,
       color: 'text-orange-500',
       bgColor: 'bg-orange-500/10',
-      skills: ['Redis', 'MySQL', 'Snowflake', 'Logstash', 'ServiceNow'],
+      skills: ['Testing (pytest)', 'Git/GitHub', 'Logging', 'Monitoring', 'Documentation', 'Agile'],
     },
     {
-      title: 'Frontend',
-      icon: Monitor,
+      title: 'Full-Stack (Basics)',
+      icon: Code,
       color: 'text-cyan-500',
       bgColor: 'bg-cyan-500/10',
-      skills: ['HTML', 'CSS', 'JavaScript'],
+      skills: ['JavaScript', 'React (Basics)', 'HTML/CSS', 'Streamlit'],
     },
     {
-      title: 'Soft Skills',
+      title: 'Product & Collaboration',
       icon: Users,
       color: 'text-pink-500',
       bgColor: 'bg-pink-500/10',
-      skills: ['Team player', 'Leadership', 'Adaptability', 'Critical thinking'],
+      skills: ['Stakeholder Communication', 'Requirements Gathering', 'Cross-functional Teams', 'Technical Documentation'],
     },
   ];
 
-  const certifications = [
-    {
-      name: 'OCI AI Foundations Associate 2025',
-      provider: 'Oracle',
-      status: 'Completed',
-      icon: Cloud,
-    },
-    {
-      name: 'Google Data Analytics Certificate',
-      provider: 'Google',
-      status: 'In Progress',
-      icon: BarChart3,
-    },
-    {
-      name: 'AWS & Azure Certifications',
-      provider: 'Amazon & Microsoft',
-      status: 'Upcoming',
-      icon: Server,
-    },
-  ];
+  const certifications = {
+    completed: [
+      {
+        name: 'Oracle Cloud Infrastructure AI Foundations Associate',
+        provider: 'Oracle',
+        date: 'January 2025',
+        credentialUrl: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=7D13265AE82EF452F1AE896FCFF9F748F23BB6186BC090BB5D8151EF61FE16BD',
+        skills: ['OCI Services', 'AI/ML Fundamentals', 'Model Evaluation', 'Generative AI Basics', 'Cloud AI Architecture', 'Prompt Engineering'],
+        icon: Cloud,
+      },
+    ],
+    inProgress: [
+      {
+        name: 'Coursera AI Engineer Professional Certificate',
+        provider: 'Coursera',
+        expectedDate: 'Q2 2025',
+        skills: ['Deep Learning', 'MLOps', 'Model Deployment', 'Production AI Systems'],
+        icon: Brain,
+      },
+      {
+        name: 'Google Data Analytics Professional Certificate',
+        provider: 'Google',
+        expectedDate: 'Q2 2025',
+        skills: ['Data Analysis', 'SQL', 'Tableau', 'Data Visualization', 'Statistical Analysis'],
+        icon: BarChart3,
+      },
+      {
+        name: 'LLM Agentic AI Engineer Bootcamp',
+        provider: 'Udemy',
+        expectedDate: 'Q1 2025',
+        skills: ['LangChain', 'RAG Systems', 'AI Agents', 'Vector Databases', 'LLM Fine-tuning'],
+        icon: Cpu,
+      },
+    ],
+    planned: [
+      {
+        name: 'AWS Solutions Architect Associate',
+        provider: 'Amazon Web Services',
+        skills: ['AWS Architecture', 'Cloud Infrastructure', 'Serverless', 'Security', 'Cost Optimization'],
+        icon: Server,
+      },
+      {
+        name: 'Azure AI Engineer Associate',
+        provider: 'Microsoft',
+        skills: ['Azure ML', 'Cognitive Services', 'AI Solutions', 'Model Training', 'Deployment'],
+        icon: Cloud,
+      },
+    ],
+  };
 
   return (
     <section id="skills" className="py-20">
@@ -135,30 +168,145 @@ const Skills = () => {
             <h3 className="text-2xl font-bold text-center mb-8">
               Certifications & <span className="bg-accent-gradient bg-clip-text text-transparent">Learning Path</span>
             </h3>
-            
-            <div className="grid md:grid-cols-3 gap-6">
-              {certifications.map((cert, index) => (
-                <Card 
-                  key={index}
-                  className="border border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-medium"
-                >
-                  <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <cert.icon className="h-8 w-8 text-primary" />
-                    </div>
-                    
-                    <h4 className="font-semibold mb-2">{cert.name}</h4>
-                    <p className="text-sm text-muted-foreground mb-3">{cert.provider}</p>
-                    
-                    <Badge 
-                      variant={cert.status === 'Completed' ? 'default' : cert.status === 'In Progress' ? 'secondary' : 'outline'}
-                      className="text-xs"
-                    >
-                      {cert.status}
-                    </Badge>
-                  </CardContent>
-                </Card>
-              ))}
+
+            {/* Completed Certifications */}
+            <div className="mb-12">
+              <div className="flex items-center gap-2 mb-4">
+                <Award className="h-5 w-5 text-green-500" />
+                <h4 className="text-xl font-semibold">Completed</h4>
+              </div>
+              <div className="grid gap-4">
+                {certifications.completed.map((cert, index) => (
+                  <Card
+                    key={index}
+                    className="border border-border/50 hover:border-green-500/30 transition-all duration-300 hover:shadow-medium"
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex flex-col md:flex-row md:items-start gap-4">
+                        <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <cert.icon className="h-6 w-6 text-green-500" />
+                        </div>
+
+                        <div className="flex-1">
+                          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-2">
+                            <div>
+                              <h5 className="font-semibold text-lg">{cert.name}</h5>
+                              <p className="text-sm text-muted-foreground">{cert.provider}</p>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <Calendar className="h-4 w-4" />
+                              <span>{cert.date}</span>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            {cert.skills.map((skill, skillIndex) => (
+                              <Badge
+                                key={skillIndex}
+                                variant="secondary"
+                                className="text-xs"
+                              >
+                                {skill}
+                              </Badge>
+                            ))}
+                          </div>
+
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full md:w-auto"
+                            onClick={() => window.open(cert.credentialUrl, '_blank')}
+                          >
+                            <ExternalLink className="h-4 w-4 mr-2" />
+                            View Credential
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* In Progress Certifications */}
+            <div className="mb-12">
+              <div className="flex items-center gap-2 mb-4">
+                <Lightbulb className="h-5 w-5 text-yellow-500" />
+                <h4 className="text-xl font-semibold">In Progress</h4>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                {certifications.inProgress.map((cert, index) => (
+                  <Card
+                    key={index}
+                    className="border border-border/50 hover:border-yellow-500/30 transition-all duration-300 hover:shadow-medium"
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-4 mb-4">
+                        <div className="w-12 h-12 bg-yellow-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <cert.icon className="h-6 w-6 text-yellow-500" />
+                        </div>
+                        <div className="flex-1">
+                          <h5 className="font-semibold mb-1">{cert.name}</h5>
+                          <p className="text-sm text-muted-foreground mb-1">{cert.provider}</p>
+                          <p className="text-xs text-muted-foreground">Expected: {cert.expectedDate}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        {cert.skills.map((skill, skillIndex) => (
+                          <Badge
+                            key={skillIndex}
+                            variant="outline"
+                            className="text-xs"
+                          >
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Planned Certifications */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Globe className="h-5 w-5 text-blue-500" />
+                <h4 className="text-xl font-semibold">Planned / Next</h4>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                {certifications.planned.map((cert, index) => (
+                  <Card
+                    key={index}
+                    className="border border-border/50 hover:border-blue-500/30 transition-all duration-300 hover:shadow-medium"
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-4 mb-4">
+                        <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <cert.icon className="h-6 w-6 text-blue-500" />
+                        </div>
+                        <div className="flex-1">
+                          <h5 className="font-semibold mb-1">{cert.name}</h5>
+                          <p className="text-sm text-muted-foreground">{cert.provider}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        {cert.skills.map((skill, skillIndex) => (
+                          <Badge
+                            key={skillIndex}
+                            variant="outline"
+                            className="text-xs opacity-70"
+                          >
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
 

@@ -192,8 +192,8 @@ const Contact = () => {
                     <span className="font-semibold text-green-600 dark:text-green-400">Available for Opportunities</span>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Currently seeking new opportunities in AI/ML Engineering, Cloud Architecture, or Data Science. 
-                    Available from March 2026.
+                    Seeking part-time Product/Backend/ML Engineer roles in Berlin.
+                    Available from February 2026.
                   </p>
                 </CardContent>
               </Card>

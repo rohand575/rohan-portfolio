@@ -1,5 +1,6 @@
-import { ArrowRight, Download, Mail, Github, Linkedin } from 'lucide-react';
+import { ArrowRight, Download, Mail, Github, Linkedin, Briefcase, Cloud, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -54,12 +55,28 @@ const Hero = () => {
           </div>
 
           {/* Subtext */}
-          <div className="mb-12 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="mb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Computer Engineer and Master's student in Computer Science (Big Data & AI) at{' '}
               <span className="text-primary font-semibold">SRH Berlin University of Applied Sciences</span>
               {' '}(Graduating March 2026). With 5 years of IT experience, I design, build, and deploy AI, ML, and Cloud-driven solutions.
             </p>
+          </div>
+
+          {/* Proof Chips */}
+          <div className="flex flex-wrap gap-4 justify-center mb-12 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <Badge variant="outline" className="px-4 py-2 text-sm border-primary/30 bg-primary/5">
+              <Briefcase className="h-4 w-4 mr-2 inline" />
+              5+ Years Experience
+            </Badge>
+            <Badge variant="outline" className="px-4 py-2 text-sm border-accent/30 bg-accent/5">
+              <Cloud className="h-4 w-4 mr-2 inline" />
+              Cloud & MLOps
+            </Badge>
+            <Badge variant="outline" className="px-4 py-2 text-sm border-purple-500/30 bg-purple-500/5">
+              <Brain className="h-4 w-4 mr-2 inline" />
+              AI/ML Engineer
+            </Badge>
           </div>
 
           {/* CTA Buttons */}

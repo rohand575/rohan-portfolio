@@ -1,18 +1,32 @@
 import React from 'react';
-import { ExternalLink, Github, Play, FileText, Zap, Brain, Database, Smartphone } from 'lucide-react';
+import { ExternalLink, Github, Play, FileText, Zap, Brain, Database, Smartphone, AlertCircle, CheckCircle2, TrendingUp, Layers } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 
 const Projects = () => {
   const projects = [
     {
       title: 'House Price Predictor',
       description: 'Built and deployed an ML model predicting house prices with Docker + Azure ML pipelines. Demonstrates MLOps deployment and monitoring skills.',
-      longDescription: 'End-to-end machine learning project featuring data preprocessing, model training, containerization with Docker, and deployment on Azure ML. Includes automated pipelines for model retraining and monitoring.',
+      problem: 'Deploy a production-ready ML model with automated retraining, monitoring, and scalable cloud infrastructure.',
+      whatIBuilt: 'End-to-end MLOps pipeline featuring data preprocessing, model training with scikit-learn, containerization with Docker, automated CI/CD deployment to Azure ML, and real-time monitoring dashboards for model performance tracking.',
       icon: Zap,
-      technologies: ['Python', 'Scikit-learn', 'Docker', 'Azure ML', 'MLOps'],
+      technologies: ['Python', 'Scikit-learn', 'Docker', 'Azure ML', 'MLOps', 'CI/CD', 'FastAPI'],
       status: 'Deployed',
+      architecture: [
+        'Data ingestion & preprocessing pipeline',
+        'Model training with hyperparameter tuning',
+        'Docker containerization for reproducibility',
+        'Azure ML deployment with auto-scaling',
+        'Monitoring dashboard for drift detection',
+      ],
+      challenges: [
+        'Containerized the entire pipeline to ensure reproducibility across dev/prod environments',
+        'Implemented automated model retraining triggers based on data drift detection metrics',
+      ],
+      impact: 'Reduced deployment time from manual ~2 hours to automated 15-minute CI/CD pipeline. Added monitoring to catch model drift.',
       links: [
         { type: 'github', url: '#', label: 'View Code' },
         { type: 'demo', url: '#', label: 'Live Demo' },
@@ -20,29 +34,80 @@ const Projects = () => {
       featured: true,
     },
     {
-      title: 'AI Guitar App',
-      description: 'An AI-powered conversational system that generates strumming patterns and chords from natural language prompts. Includes recording, editing timeline, and intelligent music suggestions.',
-      longDescription: 'Master\'s thesis concept combining NLP with symbolic music generation. Features natural language processing for music requests, pattern generation algorithms, and an intuitive interface for musicians.',
+      title: 'Conversational Guitar Generator',
+      description: 'AI-powered conversational system that generates guitar strumming patterns and chord progressions from natural language prompts.',
+      problem: 'Enable musicians to create music through conversation instead of requiring technical music theory knowledge.',
+      whatIBuilt: 'Master\'s thesis project combining NLP with symbolic music generation. Built a system that interprets natural language music requests (e.g., "happy summer song in G major") and generates appropriate chord progressions and strumming patterns using music theory algorithms and LLM-based intent understanding.',
       icon: Brain,
-      technologies: ['NLP', 'Symbolic Music Generation', 'Python', 'Cloud Deployment'],
-      status: 'Concept',
+      technologies: ['NLP', 'LLMs', 'Symbolic Music', 'Python', 'FastAPI', 'React (Basics)', 'Music Theory Algorithms'],
+      status: 'In Development',
+      architecture: [
+        'LLM-based natural language intent parser',
+        'Music theory constraint solver for chord progressions',
+        'Strumming pattern generator with rhythm templates',
+        'FastAPI backend + React frontend with audio playback',
+        'Timeline editor for pattern customization',
+      ],
+      challenges: [
+        'Designed constraint-based music theory engine to ensure generated chords are musically valid and match user intent',
+        'Built prompt engineering pipeline to extract musical attributes (key, mood, tempo) from conversational input',
+      ],
+      impact: 'Next: Add benchmarks for user satisfaction and generation accuracy. Targeting <2 second response time for generation.',
       links: [
-        { type: 'document', url: '#', label: 'Concept Note' },
+        { type: 'github', url: '#', label: 'GitHub' },
+        { type: 'document', url: '#', label: 'Thesis Proposal' },
       ],
       featured: true,
     },
     {
-      title: 'PDF Chatbot',
-      description: 'A LangChain + Streamlit app that allows users to query information from PDF documents using natural language.',
-      longDescription: 'Document Q&A system using RAG (Retrieval Augmented Generation) architecture. Users can upload PDFs and ask questions about the content using natural language queries.',
+      title: 'Doc-Chat AI',
+      description: 'LangChain-based RAG system that allows users to query PDF documents using natural language.',
+      problem: 'Enable users to extract insights from lengthy PDF documents without manual reading and searching.',
+      whatIBuilt: 'Document Q&A system using RAG (Retrieval Augmented Generation) architecture. Users upload PDFs, the system chunks and embeds content into FAISS vector store, then answers questions using semantic search + OpenAI GPT for natural language responses.',
       icon: FileText,
-      technologies: ['LangChain', 'OpenAI', 'FAISS', 'Streamlit', 'RAG'],
-      status: 'Completed',
+      technologies: ['LangChain', 'OpenAI', 'FAISS', 'Streamlit', 'RAG', 'Python'],
+      status: 'Deployed',
+      architecture: [
+        'PDF text extraction & intelligent chunking',
+        'Embedding generation with OpenAI',
+        'FAISS vector store for semantic search',
+        'LangChain orchestration layer',
+        'Streamlit frontend with chat interface',
+      ],
+      challenges: [
+        'Optimized chunk size (500 tokens with 50 token overlap) to balance context vs. retrieval precision',
+        'Added source citation feature to show which PDF pages were used for each answer',
+      ],
+      impact: 'Deployed to production. Next: Add usage analytics and query latency metrics.',
       links: [
         { type: 'github', url: 'https://github.com/rohand575/doc-chat-ai', label: 'GitHub' },
-        { type: 'demo', url: 'https://doc-ai.rohan-dhanawade.de/', label: 'Demo' },
+        { type: 'demo', url: 'https://doc-ai.rohan-dhanawade.de/', label: 'Live Demo' },
       ],
-      featured: false,
+      featured: true,
+    },
+    {
+      title: 'Character AI Chatbot',
+      description: 'FastAPI + OpenAI powered chatbot with customizable character personalities and conversational memory.',
+      problem: 'Build an interactive chatbot with persistent personality and conversation history.',
+      whatIBuilt: 'Full-stack chatbot application with FastAPI backend integrating OpenAI API, conversation memory management, and a simple frontend interface for real-time chat interactions.',
+      icon: Brain,
+      technologies: ['FastAPI', 'OpenAI API', 'Python', 'React', 'REST APIs', 'Conversational AI'],
+      status: 'Completed',
+      architecture: [
+        'FastAPI REST endpoints for chat',
+        'OpenAI GPT-3.5/4 integration with system prompts',
+        'Session-based conversation memory',
+        'React frontend with WebSocket support',
+      ],
+      challenges: [
+        'Implemented conversation context management to stay within token limits while maintaining coherent dialogue',
+        'Added character personality system prompts to enable different chatbot personas',
+      ],
+      impact: 'Next: Add latency benchmarks and response quality metrics.',
+      links: [
+        { type: 'github', url: '#', label: 'GitHub' },
+      ],
+      featured: true,
     },
     {
       title: 'Tesla OSINT Project',
@@ -116,45 +181,125 @@ const Projects = () => {
             <div className="w-20 h-1 bg-accent-gradient mx-auto rounded-full mt-4"></div>
           </div>
 
-          {/* Featured Projects */}
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
+          {/* Featured Projects - Case Study Format */}
+          <div className="space-y-8 mb-16">
             {featuredProjects.map((project, index) => (
-              <Card 
-                key={index} 
-                className="border border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-large hover-lift group"
+              <Card
+                key={index}
+                className="border border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-large group"
               >
                 <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <project.icon className="h-6 w-6 text-primary" />
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <project.icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-2xl group-hover:text-primary transition-colors duration-300">
+                          {project.title}
+                        </CardTitle>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {project.technologies.map((tech, techIndex) => (
+                            <Badge key={techIndex} variant="secondary" className="text-xs">
+                              {tech}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                     <Badge className={getStatusColor(project.status)}>
                       {project.status}
                     </Badge>
                   </div>
-                  <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </CardTitle>
                 </CardHeader>
-                
-                <CardContent className="pt-0">
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
-                    {project.longDescription}
-                  </p>
-                  
-                  {/* Technologies */}
-                  <div className="mb-6">
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, techIndex) => (
-                        <Badge key={techIndex} variant="secondary" className="text-xs">
-                          {tech}
-                        </Badge>
-                      ))}
+
+                <CardContent className="pt-0 space-y-6">
+                  {/* Problem */}
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <AlertCircle className="h-4 w-4 text-orange-500" />
+                      <h4 className="font-semibold text-sm">Problem</h4>
                     </div>
+                    <p className="text-muted-foreground text-sm leading-relaxed pl-6">
+                      {project.problem}
+                    </p>
                   </div>
-                  
+
+                  <Separator />
+
+                  {/* What I Built */}
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Zap className="h-4 w-4 text-blue-500" />
+                      <h4 className="font-semibold text-sm">What I Built</h4>
+                    </div>
+                    <p className="text-muted-foreground text-sm leading-relaxed pl-6">
+                      {project.whatIBuilt}
+                    </p>
+                  </div>
+
+                  <Separator />
+
+                  {/* Architecture */}
+                  {project.architecture && (
+                    <>
+                      <div>
+                        <div className="flex items-center gap-2 mb-3">
+                          <Layers className="h-4 w-4 text-purple-500" />
+                          <h4 className="font-semibold text-sm">Architecture</h4>
+                        </div>
+                        <ul className="space-y-2 pl-6">
+                          {project.architecture.map((item, i) => (
+                            <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                              <span className="text-primary mt-1">→</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <Separator />
+                    </>
+                  )}
+
+                  {/* Challenges & Fixes */}
+                  {project.challenges && (
+                    <>
+                      <div>
+                        <div className="flex items-center gap-2 mb-3">
+                          <CheckCircle2 className="h-4 w-4 text-green-500" />
+                          <h4 className="font-semibold text-sm">Challenges & Fixes</h4>
+                        </div>
+                        <ul className="space-y-2 pl-6">
+                          {project.challenges.map((item, i) => (
+                            <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                              <span className="text-green-500 mt-1">✓</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <Separator />
+                    </>
+                  )}
+
+                  {/* Impact */}
+                  {project.impact && (
+                    <>
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <TrendingUp className="h-4 w-4 text-accent" />
+                          <h4 className="font-semibold text-sm">Impact</h4>
+                        </div>
+                        <p className="text-muted-foreground text-sm leading-relaxed pl-6">
+                          {project.impact}
+                        </p>
+                      </div>
+                      <Separator />
+                    </>
+                  )}
+
                   {/* Links */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 pt-2">
                     {project.links.map((link, linkIndex) => {
                       const IconComponent = getLinkIcon(link.type);
                       return (

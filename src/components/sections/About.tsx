@@ -1,6 +1,7 @@
 import React from 'react';
-import { GraduationCap, MapPin, Guitar, Video, Dumbbell, Plane } from 'lucide-react';
+import { GraduationCap, MapPin, Guitar, Video, Dumbbell, Plane, Rocket, BookOpen, Briefcase, Download, Mail } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 const About = () => {
   const highlights = [
@@ -129,6 +130,82 @@ const About = () => {
                 </CardContent>
               </Card>
             </div>
+          </div>
+
+          {/* What I'm Doing Now Section */}
+          <div className="mt-20">
+            <Card className="border-2 border-accent/30 bg-gradient-to-br from-accent/5 via-background to-primary/5">
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold mb-2">
+                    What I'm <span className="bg-accent-gradient bg-clip-text text-transparent">Doing Now</span>
+                  </h3>
+                  <p className="text-sm text-muted-foreground">Current focus & availability</p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-6 mb-8">
+                  <div className="flex flex-col items-center text-center p-4">
+                    <div className="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center mb-3">
+                      <Rocket className="h-7 w-7 text-accent" />
+                    </div>
+                    <h4 className="font-semibold mb-2">Building</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Conversational Guitar Strumming & Chord Progression Generator (symbolic music + NLP)
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col items-center text-center p-4">
+                    <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-3">
+                      <BookOpen className="h-7 w-7 text-primary" />
+                    </div>
+                    <h4 className="font-semibold mb-2">Learning</h4>
+                    <p className="text-sm text-muted-foreground">
+                      MLOps best practices + Cloud deployment patterns (Azure/AWS) + LLM Agentic systems
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col items-center text-center p-4">
+                    <div className="w-14 h-14 bg-green-500/10 rounded-full flex items-center justify-center mb-3">
+                      <Briefcase className="h-7 w-7 text-green-500" />
+                    </div>
+                    <h4 className="font-semibold mb-2">Seeking</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Part-time Product/Backend/ML Engineer roles in Berlin (Available from February 2026)
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button
+                    variant="default"
+                    size="lg"
+                    className="gap-2"
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = '/Resume.pdf';
+                      link.download = 'Rohan_Dhanawade_Resume.pdf';
+                      link.click();
+                    }}
+                  >
+                    <Download className="h-5 w-5" />
+                    Download Resume (PDF)
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="gap-2"
+                    onClick={() => {
+                      const contactSection = document.getElementById('contact');
+                      contactSection?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    <Mail className="h-5 w-5" />
+                    Email Me
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
