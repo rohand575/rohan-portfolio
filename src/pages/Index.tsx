@@ -19,10 +19,13 @@ const Index = () => {
             totalFrames={192}
             fallbackImage="/hero-final.mp4"
             enableAnimation={true}
-          />
-          <About />
-          <Skills />
-          <Experience />
+          >
+            <>
+              <About />
+              <Skills />
+              <Experience />
+            </>
+          </HeroScrollVideoCanvas>
           <Projects />
           {/* <Blog /> */}
           <Contact />

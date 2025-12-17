@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, ReactNode, useMemo, Children, createRef } from 'react';
 import { ArrowRight, Download, Mail, Github, Linkedin, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -22,6 +22,10 @@ interface HeroScrollVideoCanvasProps {
    * Enable frame sequence animation (set to false to use static image only)
    */
   enableAnimation?: boolean;
+  /**
+   * Optional content that should share the same animated background (e.g., About section)
+   */
+  children?: ReactNode;
 }
 
 const HeroScrollVideoCanvas = ({
@@ -29,9 +33,11 @@ const HeroScrollVideoCanvas = ({
   totalFrames = 192,
   fallbackImage = '/hero-webp.webp',
   enableAnimation = true,
+  children,
 }: HeroScrollVideoCanvasProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
+  const heroSectionRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<(HTMLImageElement | null)[]>([]);
   const [loadedCount, setLoadedCount] = useState(0);
@@ -39,7 +45,25 @@ const HeroScrollVideoCanvas = ({
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const currentFrameRef = useRef(0);
 
-  const scrollProgress = useScrollProgress({ ref: containerRef });
+  const childArray = useMemo(() => Children.toArray(children).filter(Boolean), [children]);
+  const childRefs = useMemo(
+    () => childArray.map(() => createRef<HTMLDivElement>()),
+    [childArray.length]
+  );
+
+  const heroProgress = useScrollProgress({ ref: heroSectionRef });
+  const childProgresses = childRefs.map((ref) => useScrollProgress({ ref }));
+
+  // Split animation progress evenly across hero + each child section.
+  const totalSections = 1 + childArray.length;
+  const sectionWeight = totalSections > 0 ? 1 / totalSections : 1;
+  const animationProgress = Math.min(
+    1,
+    [heroProgress, ...childProgresses].reduce((acc, progressValue) => {
+      const clamped = Math.max(0, Math.min(1, progressValue));
+      return acc + clamped * sectionWeight;
+    }, 0)
+  );
 
   // Detect mobile and reduced motion preference
   useEffect(() => {
@@ -50,10 +74,12 @@ const HeroScrollVideoCanvas = ({
     setPrefersReducedMotion(mediaQuery.matches);
 
     window.addEventListener('resize', checkMobile);
-    mediaQuery.addEventListener('change', (e) => setPrefersReducedMotion(e.matches));
+    const mediaChangeHandler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', mediaChangeHandler);
 
     return () => {
       window.removeEventListener('resize', checkMobile);
+      mediaQuery.removeEventListener('change', mediaChangeHandler);
     };
   }, []);
 
@@ -131,7 +157,7 @@ const HeroScrollVideoCanvas = ({
     if (!ctx) return;
 
     const frameIndex = Math.min(
-      Math.floor(scrollProgress * (totalFrames - 1)),
+      Math.floor(animationProgress * (totalFrames - 1)),
       totalFrames - 1
     );
 
@@ -176,7 +202,7 @@ const HeroScrollVideoCanvas = ({
     // Clear and draw
     ctx.clearRect(0, 0, displayRect.width, displayRect.height);
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-  }, [scrollProgress, images, shouldAnimate, totalFrames]);
+  }, [animationProgress, images, shouldAnimate, totalFrames]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -207,10 +233,9 @@ const HeroScrollVideoCanvas = ({
   const isLoading = loadedCount < Math.min(10, totalFrames);
 
   return (
-    <div ref={containerRef} className="relative" style={{ height: '300vh' }}>
-      {/* Sticky container for pinning effect */}
+    <div ref={containerRef} className="relative">
+      {/* Sticky background that stays through Hero + About */}
       <div ref={stickyRef} className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Background Canvas/Image */}
         <div className="absolute inset-0 w-full h-full bg-black">
           {shouldAnimate ? (
             <>
@@ -223,7 +248,6 @@ const HeroScrollVideoCanvas = ({
                   objectFit: 'cover'
                 }}
               />
-              {/* Loading state */}
               {isLoading && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black">
                   <div className="text-center">
@@ -242,16 +266,19 @@ const HeroScrollVideoCanvas = ({
           )}
 
           {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/75" />
         </div>
+      </div>
 
-        {/* Content Overlay */}
-        <div className="relative z-10 h-full flex items-center justify-center">
+      {/* Foreground content that scrolls while background stays pinned */}
+      <div className="relative -mt-[100vh] z-10">
+        <section
+          ref={heroSectionRef}
+          className="relative min-h-screen flex items-center"
+        >
           <div className="container mx-auto px-6 py-20">
             <div className="max-w-5xl mx-auto">
-              {/* Left-aligned on desktop, centered on mobile */}
-              <div className="text-left md:text-left">
-                {/* Headline */}
+              <div className="text-left">
                 <div className="mb-6 animate-fade-in-up">
                   <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 leading-tight text-white">
                     Rohan Dhanawade
@@ -269,14 +296,12 @@ const HeroScrollVideoCanvas = ({
                   </div>
                 </div>
 
-                {/* Value Proposition */}
                 <div className="mb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
                   <p className="text-lg md:text-xl lg:text-2xl text-gray-100 max-w-3xl leading-relaxed">
                     I build production-ready AI systems and automation pipelines that solve real-world problems.
                   </p>
                 </div>
 
-                {/* Skills Chips */}
                 <div className="flex flex-wrap gap-3 mb-10 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
                   {['Python', 'MLOps', 'Azure', 'LLMs', 'FastAPI', 'Docker'].map((skill) => (
                     <Badge
@@ -288,7 +313,6 @@ const HeroScrollVideoCanvas = ({
                   ))}
                 </div>
 
-                {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                   <Button
                     size="lg"
@@ -311,7 +335,6 @@ const HeroScrollVideoCanvas = ({
                   </Button>
                 </div>
 
-                {/* Social Links */}
                 <div className="flex gap-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
                   {socialLinks.map((social, index) => (
                     <a
@@ -329,17 +352,23 @@ const HeroScrollVideoCanvas = ({
               </div>
             </div>
           </div>
-          {/* Scroll Hint */}
+
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
             <span className="text-white text-sm font-medium">Scroll</span>
             <ChevronDown className="w-6 h-6 text-white" />
           </div>
-        </div>
+        </section>
+
+        {children && (
+          childArray.map((child, index) => (
+            <div key={index} ref={childRefs[index]} className="relative">
+              {child}
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
 };
 
 export default HeroScrollVideoCanvas;
-
-
