@@ -276,79 +276,84 @@ const HeroScrollVideoCanvas = ({
           ref={heroSectionRef}
           className="relative min-h-screen flex items-center"
         >
-          <div className="container mx-auto px-6 py-20">
-            <div className="max-w-5xl mx-auto">
-              <div className="text-left">
-                <div className="mb-6 animate-fade-in-up">
-                  <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 leading-tight text-white">
-                    Rohan Dhanawade
-                  </h1>
-                  <div className="flex flex-wrap gap-3 items-center mb-4">
-                    <span className="text-2xl md:text-3xl lg:text-4xl font-semibold bg-accent-gradient bg-clip-text text-transparent">
-                      AI Engineer
-                    </span>
-                    <span className="text-xl md:text-2xl text-gray-300">&bull;</span>
-                    <span className="text-xl md:text-2xl text-gray-300">ML</span>
-                    <span className="text-xl md:text-2xl text-gray-300">&bull;</span>
-                    <span className="text-xl md:text-2xl text-gray-300">Cloud</span>
-                    <span className="text-xl md:text-2xl text-gray-300">&bull;</span>
-                    <span className="text-xl md:text-2xl text-gray-300">Data</span>
+          <div className="container mx-auto px-6 py-20 md:py-24 lg:py-28">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid lg:grid-cols-[1fr_0.8fr] gap-12 items-center">
+                <div className="max-w-3xl space-y-8 animate-fade-in-up">
+                  <div className="space-y-4">
+                    <div className="h-1.5 w-16 bg-accent rounded-full shadow-glow" />
+                    <p className="text-sm uppercase tracking-[0.3em] text-white/70">AI Engineer</p>
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight text-white">
+                      Rohan Dhanawade
+                    </h1>
+                    <div className="flex flex-wrap gap-3 items-center text-white/80">
+                      <span className="text-xl md:text-2xl font-semibold bg-accent-gradient bg-clip-text text-transparent">
+                        AI Engineer
+                      </span>
+                      <span className="text-lg md:text-xl text-gray-300">&bull;</span>
+                      <span className="text-lg md:text-xl text-gray-300">ML</span>
+                      <span className="text-lg md:text-xl text-gray-300">&bull;</span>
+                      <span className="text-lg md:text-xl text-gray-300">Cloud</span>
+                      <span className="text-lg md:text-xl text-gray-300">&bull;</span>
+                      <span className="text-lg md:text-xl text-gray-300">Data</span>
+                    </div>
+                  </div>
+
+                  <div className="text-lg md:text-xl text-gray-100 max-w-2xl leading-relaxed">
+                    I build production-ready AI systems and automation pipelines that solve real-world problems.
+                  </div>
+
+                  <div className="flex flex-wrap gap-3">
+                    {['Python', 'MLOps', 'Azure', 'LLMs', 'FastAPI', 'Docker'].map((skill) => (
+                      <Badge
+                        key={skill}
+                        className="px-4 py-2 text-sm bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+                      >
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Button
+                      size="lg"
+                      className="bg-accent-gradient hover:opacity-90 text-white shadow-glow transition-all duration-300 hover:scale-105"
+                    >
+                      <a href="/Resume.pdf" download className="flex items-center">
+                        <Download className="mr-2 h-5 w-5" />
+                        Download CV
+                      </a>
+                    </Button>
+
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-105"
+                      onClick={() => scrollToSection('projects')}
+                    >
+                      View Projects
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </div>
+
+                  <div className="flex gap-4">
+                    {socialLinks.map((social, index) => (
+                      <a
+                        key={index}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-110 group"
+                        aria-label={social.label}
+                      >
+                        <social.icon className="h-5 w-5 text-white group-hover:text-primary transition-colors duration-300" />
+                      </a>
+                    ))}
                   </div>
                 </div>
 
-                <div className="mb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                  <p className="text-lg md:text-xl lg:text-2xl text-gray-100 max-w-3xl leading-relaxed">
-                    I build production-ready AI systems and automation pipelines that solve real-world problems.
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-3 mb-10 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-                  {['Python', 'MLOps', 'Azure', 'LLMs', 'FastAPI', 'Docker'].map((skill) => (
-                    <Badge
-                      key={skill}
-                      className="px-4 py-2 text-sm bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
-                    >
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-                  <Button
-                    size="lg"
-                    className="bg-accent-gradient hover:opacity-90 text-white shadow-glow transition-all duration-300 hover:scale-105"
-                  >
-                    <a href="/Resume.pdf" download className="flex items-center">
-                      <Download className="mr-2 h-5 w-5" />
-                      Download CV
-                    </a>
-                  </Button>
-
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-105"
-                    onClick={() => scrollToSection('projects')}
-                  >
-                    View Projects
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </div>
-
-                <div className="flex gap-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-                  {socialLinks.map((social, index) => (
-                    <a
-                      key={index}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-110 group"
-                      aria-label={social.label}
-                    >
-                      <social.icon className="h-5 w-5 text-white group-hover:text-primary transition-colors duration-300" />
-                    </a>
-                  ))}
-                </div>
+                {/* Empty right column to keep hero content left aligned and give the portrait space */}
+                <div className="hidden lg:block" />
               </div>
             </div>
           </div>
