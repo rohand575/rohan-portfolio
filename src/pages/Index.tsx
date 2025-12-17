@@ -17,7 +17,7 @@ const Index = () => {
           <HeroScrollVideoCanvas
             framePathPattern="/hero/frames/frame_{index}.jpg"
             totalFrames={192}
-            fallbackImage="/hero-webp.webp"
+            fallbackImage="/hero-final.mp4"
             enableAnimation={true}
           />
           <About />
