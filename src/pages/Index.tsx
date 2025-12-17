@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Navigation from '@/components/Navigation';
-import Hero from '@/components/sections/Hero';
+import HeroScrollVideoCanvas from '@/components/sections/HeroScrollVideoCanvas';
 import About from '@/components/sections/About';
 import Skills from '@/components/sections/Skills';
 import Experience from '@/components/sections/Experience';
@@ -10,11 +10,16 @@ import Contact from '@/components/sections/Contact';
 
 const Index = () => {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="portfolio-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme-dark">
       <div className="min-h-screen bg-background">
         <Navigation />
         <main>
-          <Hero />
+          <HeroScrollVideoCanvas
+            framePathPattern="/hero/frames/frame_{index}.jpg"
+            totalFrames={192}
+            fallbackImage="/hero-webp.webp"
+            enableAnimation={true}
+          />
           <About />
           <Skills />
           <Experience />

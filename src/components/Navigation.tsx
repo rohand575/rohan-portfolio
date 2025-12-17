@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Moon, Sun, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useTheme } from './ThemeProvider';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
 
   const navItems = [
     { label: 'About', href: '#about' },
@@ -34,10 +32,6 @@ const Navigation = () => {
       });
     }
     setIsMobileMenuOpen(false);
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
   return (
@@ -68,35 +62,10 @@ const Navigation = () => {
                 {item.label}
               </button>
             ))}
-            
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="ml-4"
-            >
-              {theme === 'light' ? (
-                <Moon className="h-5 w-5" />
-              ) : (
-                <Sun className="h-5 w-5" />
-              )}
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-            >
-              {theme === 'light' ? (
-                <Moon className="h-5 w-5" />
-              ) : (
-                <Sun className="h-5 w-5" />
-              )}
-            </Button>
-            
             <Button
               variant="ghost"
               size="icon"
