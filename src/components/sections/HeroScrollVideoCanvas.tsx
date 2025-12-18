@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, ReactNode, useMemo, Children, createRef } from 'react';
-import { ArrowRight, Download, Mail, Github, Linkedin, ChevronDown } from 'lucide-react';
+import { useEffect, useRef, useState, ReactNode, useMemo, Children, createRef, useCallback, memo } from 'react';
+import { ArrowRight, Download, Mail, Github, Linkedin, ChevronDown, type LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useScrollProgress } from '@/hooks/useScrollProgress';
@@ -27,6 +27,94 @@ interface HeroScrollVideoCanvasProps {
    */
   children?: ReactNode;
 }
+
+type SocialLink = {
+  icon: LucideIcon;
+  href: string;
+  label: string;
+};
+
+interface HeroContentProps {
+  onProjectsClick: () => void;
+  socialLinks: SocialLink[];
+}
+
+const HeroContent = memo(({ onProjectsClick, socialLinks }: HeroContentProps) => (
+  <div className="max-w-3xl space-y-8 animate-fade-in-up">
+    <div className="space-y-4">
+      <div className="h-1.5 w-16 bg-accent rounded-full shadow-glow" />
+      <p className="text-sm uppercase tracking-[0.3em] text-white/70">AI Engineer</p>
+      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight text-white">
+        Rohan Dhanawade
+      </h1>
+      <div className="flex flex-wrap gap-3 items-center text-white/80">
+        <span className="text-xl md:text-2xl font-semibold bg-accent-gradient bg-clip-text text-transparent">
+          AI Engineer
+        </span>
+        <span className="text-lg md:text-xl text-gray-300">&bull;</span>
+        <span className="text-lg md:text-xl text-gray-300">ML</span>
+        <span className="text-lg md:text-xl text-gray-300">&bull;</span>
+        <span className="text-lg md:text-xl text-gray-300">Cloud</span>
+        <span className="text-lg md:text-xl text-gray-300">&bull;</span>
+        <span className="text-lg md:text-xl text-gray-300">Data</span>
+      </div>
+    </div>
+
+    <div className="text-lg md:text-xl text-gray-100 max-w-2xl leading-relaxed">
+      I build production-ready AI systems and automation pipelines that solve real-world problems.
+    </div>
+
+    <div className="flex flex-wrap gap-3">
+      {['Python', 'MLOps', 'Azure', 'LLMs', 'FastAPI', 'Docker'].map((skill) => (
+        <Badge
+          key={skill}
+          className="px-4 py-2 text-sm bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+        >
+          {skill}
+        </Badge>
+      ))}
+    </div>
+
+    <div className="flex flex-col sm:flex-row gap-4">
+      <Button
+        size="lg"
+        className="bg-accent-gradient hover:opacity-90 text-white shadow-glow transition-all duration-300 hover:scale-105"
+      >
+        <a href="/Resume.pdf" download className="flex items-center">
+          <Download className="mr-2 h-5 w-5" />
+          Download CV
+        </a>
+      </Button>
+
+      <Button
+        size="lg"
+        variant="outline"
+        className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-105"
+        onClick={onProjectsClick}
+      >
+        View Projects
+        <ArrowRight className="ml-2 h-5 w-5" />
+      </Button>
+    </div>
+
+    <div className="flex gap-4">
+      {socialLinks.map((social, index) => (
+        <a
+          key={index}
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-110 group"
+          aria-label={social.label}
+        >
+          <social.icon className="h-5 w-5 text-white group-hover:text-primary transition-colors duration-300" />
+        </a>
+      ))}
+    </div>
+  </div>
+));
+
+HeroContent.displayName = 'HeroContent';
 
 const HeroScrollVideoCanvas = ({
   framePathPattern = '/hero/frames/frame_{index}.webp',
@@ -56,6 +144,24 @@ const HeroScrollVideoCanvas = ({
     () => childArray.map(() => createRef<HTMLDivElement>()),
     [childArray.length]
   );
+
+  const socialLinks = useMemo<SocialLink[]>(() => [
+    {
+      icon: Linkedin,
+      href: 'https://www.linkedin.com/in/rohan-dhanawade-25a616142/',
+      label: 'LinkedIn Profile',
+    },
+    {
+      icon: Github,
+      href: 'https://github.com/rohand575',
+      label: 'GitHub Profile',
+    },
+    {
+      icon: Mail,
+      href: 'mailto:rohan.dhanawade97@gmail.com',
+      label: 'Email Contact',
+    },
+  ], []);
 
   const heroProgress = useScrollProgress({ ref: heroSectionRef });
   const childProgresses = childRefs.map((ref) => useScrollProgress({ ref }));
@@ -210,105 +316,14 @@ const HeroScrollVideoCanvas = ({
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
   }, [animationProgress, images, shouldAnimate, totalFrames]);
 
-  const scrollToSection = (id: string) => {
+  const scrollToSection = useCallback((id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
-  const socialLinks = [
-    {
-      icon: Linkedin,
-      href: 'https://www.linkedin.com/in/rohan-dhanawade-25a616142/',
-      label: 'LinkedIn Profile',
-    },
-    {
-      icon: Github,
-      href: 'https://github.com/rohand575',
-      label: 'GitHub Profile',
-    },
-    {
-      icon: Mail,
-      href: 'mailto:rohan.dhanawade97@gmail.com',
-      label: 'Email Contact',
-    },
-  ];
-
-  const HeroContent = () => (
-    <div className="max-w-3xl space-y-8 animate-fade-in-up">
-      <div className="space-y-4">
-        <div className="h-1.5 w-16 bg-accent rounded-full shadow-glow" />
-        <p className="text-sm uppercase tracking-[0.3em] text-white/70">AI Engineer</p>
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight text-white">
-          Rohan Dhanawade
-        </h1>
-        <div className="flex flex-wrap gap-3 items-center text-white/80">
-          <span className="text-xl md:text-2xl font-semibold bg-accent-gradient bg-clip-text text-transparent">
-            AI Engineer
-          </span>
-          <span className="text-lg md:text-xl text-gray-300">&bull;</span>
-          <span className="text-lg md:text-xl text-gray-300">ML</span>
-          <span className="text-lg md:text-xl text-gray-300">&bull;</span>
-          <span className="text-lg md:text-xl text-gray-300">Cloud</span>
-          <span className="text-lg md:text-xl text-gray-300">&bull;</span>
-          <span className="text-lg md:text-xl text-gray-300">Data</span>
-        </div>
-      </div>
-
-      <div className="text-lg md:text-xl text-gray-100 max-w-2xl leading-relaxed">
-        I build production-ready AI systems and automation pipelines that solve real-world problems.
-      </div>
-
-      <div className="flex flex-wrap gap-3">
-        {['Python', 'MLOps', 'Azure', 'LLMs', 'FastAPI', 'Docker'].map((skill) => (
-          <Badge
-            key={skill}
-            className="px-4 py-2 text-sm bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
-          >
-            {skill}
-          </Badge>
-        ))}
-      </div>
-
-      <div className="flex flex-col sm:flex-row gap-4">
-        <Button
-          size="lg"
-          className="bg-accent-gradient hover:opacity-90 text-white shadow-glow transition-all duration-300 hover:scale-105"
-        >
-          <a href="/Resume.pdf" download className="flex items-center">
-            <Download className="mr-2 h-5 w-5" />
-            Download CV
-          </a>
-        </Button>
-
-        <Button
-          size="lg"
-          variant="outline"
-          className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-105"
-          onClick={() => scrollToSection('projects')}
-        >
-          View Projects
-          <ArrowRight className="ml-2 h-5 w-5" />
-        </Button>
-      </div>
-
-      <div className="flex gap-4">
-        {socialLinks.map((social, index) => (
-          <a
-            key={index}
-            href={social.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-110 group"
-            aria-label={social.label}
-          >
-            <social.icon className="h-5 w-5 text-white group-hover:text-primary transition-colors duration-300" />
-          </a>
-        ))}
-      </div>
-    </div>
-  );
+  const handleProjectsClick = useCallback(() => scrollToSection('projects'), [scrollToSection]);
 
   const loadProgress = Math.round((loadedCount / totalFrames) * 100);
   const isLoading = loadedCount < Math.min(10, totalFrames);
@@ -324,7 +339,7 @@ const HeroScrollVideoCanvas = ({
           <div className="container mx-auto px-6 py-20 md:py-24 lg:py-28">
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-[1fr_0.8fr] gap-12 items-center">
-                <HeroContent />
+                <HeroContent onProjectsClick={handleProjectsClick} socialLinks={socialLinks} />
                 <div className="hidden lg:block" />
               </div>
             </div>
@@ -391,7 +406,7 @@ const HeroScrollVideoCanvas = ({
           <div className="container mx-auto px-6 py-20 md:py-24 lg:py-28">
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-[1fr_0.8fr] gap-12 items-center">
-                <HeroContent />
+                <HeroContent onProjectsClick={handleProjectsClick} socialLinks={socialLinks} />
 
                 {/* Empty right column to keep hero content left aligned and give the portrait space */}
                 <div className="hidden lg:block" />
